@@ -36,6 +36,31 @@ grafico.show()
 #Tratamento dos dados
 
 #1 - Valores Inconsistentes
+base_credit.loc[base_credit['age'] < 0]
+
+# Apagar a coluna inteira (de todos os registros da base de dados)
+base_credit2 = base_credit.drop('age', axis = 1)
+print(base_credit2)
+base_credit.index
+
+# Apagar somente os registros com valores inconsistentes
+base_credit3 = base_credit.drop(base_credit[base_credit['age'] < 0].index)
+base_credit3
+base_credit3.loc[base_credit3['age'] < 0]
+
+# Preencher os valores inconsistente manualmente
+# Prencher a média
+base_credit['age'][base_credit['age'] > 0].mean()
+base_credit.loc[base_credit['age'] < 0, 'age'] = 40.92
+
+base_credit.head(27)
 
 
 #2 - Valores Faltantes
+base_credit.isnull()
+base_credit.isnull().sum()
+base_credit.loc[pd.isnull(base_credit['age'])]
+#preenchendo com a média os valores NULL
+base_credit['age'].fillna(base_credit['age'].mean(), inplace = True)
+
+base_credit.isnull().sum()
