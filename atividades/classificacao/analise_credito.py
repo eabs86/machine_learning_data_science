@@ -63,4 +63,25 @@ base_credit.loc[pd.isnull(base_credit['age'])]
 #preenchendo com a média os valores NULL
 base_credit['age'].fillna(base_credit['age'].mean(), inplace = True)
 
+base_credit.loc[base_credit['clientid'].isin([29,31,32])]
 base_credit.isnull().sum()
+
+
+# Divisão entre previsores e classe
+
+X_credit = base_credit.iloc[:, 1:4].values
+
+X_credit
+
+y_credit = base_credit.iloc[:, 4].values
+
+y_credit
+
+#Escalonamento dos dados
+
+from sklearn.preprocessing import StandardScaler
+
+scaler_credit = StandardScaler()
+X_credit = scaler_credit.fit_transform(X_credit)
+
+X_credit
