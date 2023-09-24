@@ -84,3 +84,5 @@ onehotencoder_census = ColumnTransformer(transformers=[('OneHot', OneHotEncoder(
 X_census = onehotencoder_census.fit_transform(X_census).toarray()
 
 X_census.shape
+
+
