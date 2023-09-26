@@ -2,3 +2,4 @@
 ./.venv
 */.venv
 /.recursos
+/atividades/classificacao/*.pkl

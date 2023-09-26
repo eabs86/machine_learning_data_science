@@ -3,6 +3,9 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
+#as duas linhas abaixo são necessarias para o plotly rodar no spyder.
+import plotly.io as pio
+pio.renderers.default='browser'
 
 
 
@@ -72,9 +75,8 @@ X_census[:,13] = label_encoder_country.fit_transform(X_census[:,13])
 #OneHotEncoder
 # Corrige o problema do label encoder
 # Porém adicionar mais colunas (atributos) no dataset
-
-from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import OneHotEncoder
 
 onehotencoder_census = ColumnTransformer(transformers=[('OneHot', OneHotEncoder(),
                                                         [1,3,5,6,7,8,9,13])],
@@ -85,4 +87,23 @@ X_census = onehotencoder_census.fit_transform(X_census).toarray()
 
 X_census.shape
 
+from sklearn.preprocessing import StandardScaler
 
+scaler_census = StandardScaler()
+X_census_scaled = scaler_census.fit_transform(X_census)
+
+
+# Avaliação do algoritmo.
+
+from sklearn.model_selection import train_test_split
+
+RANDOM_STATE = 0
+
+X_census_train, X_census_test, y_census_train, y_census_test = train_test_split(
+    X_census_scaled,y_census, test_size=0.15, random_state= RANDOM_STATE)
+
+#salvando as bases de dados
+
+import pickle
+
+with open()

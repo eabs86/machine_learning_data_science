@@ -3,6 +3,9 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.express as px
+#as duas linhas abaixo são necessarias para o plotly rodar no spyder.
+import plotly.io as pio
+pio.renderers.default='browser'
 
 
 base_credit = pd.read_csv('credit_data.csv')
@@ -85,3 +88,16 @@ scaler_credit = StandardScaler()
 X_credit = scaler_credit.fit_transform(X_credit)
 
 X_credit
+
+from sklearn.model_selection import train_test_split
+RANDOM_STATE = 0
+
+X_credit_train,X_credit_test, y_credit_train, y_credit_test = train_test_split(
+    X_credit, y_credit, test_size=0.25, random_state=RANDOM_STATE)
+
+#salvando a base de dados
+
+import pickle
+
+with open('credit.pkl',mode = 'wb') as f:
+    pickle.dump([X_credit_train,y_credit_train,X_credit_test,y_credit], f)
