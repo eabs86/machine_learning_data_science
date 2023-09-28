@@ -106,4 +106,6 @@ X_census_train, X_census_test, y_census_train, y_census_test = train_test_split(
 
 import pickle
 
-with open()
+
+with open('census.pkl',mode = 'wb') as f:
+    pickle.dump([X_census_train,y_census_train,X_census_test,y_census], f)
