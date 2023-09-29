@@ -108,4 +108,31 @@ import pickle
 
 
 with open('census.pkl',mode = 'wb') as f:
-    pickle.dump([X_census_train,y_census_train,X_census_test,y_census], f)
+    pickle.dump([X_census_train,y_census_train,X_census_test,y_census_test], f)
+    
+    
+# lendo o arquivo pkl
+
+with open('census.pkl',mode = 'rb') as f:
+    X_census_train,y_census_train,X_census_test,y_census_test = pickle.load(f)
+    
+#aplicando o algoritmo de classificação
+from sklearn.naive_bayes import GaussianNB
+
+naive_bayes_classifier = GaussianNB()
+naive_bayes_classifier.fit(X_census_train, y_census_train)
+
+previsao = naive_bayes_classifier.predict(X_census_test)
+
+from sklearn.metrics import accuracy_score, confusion_matrix,classification_report
+
+accuracy_score(y_census_test, previsao)
+confusion_matrix(y_census_test, previsao)
+
+from yellowbrick.classifier import ConfusionMatrix
+
+cm = ConfusionMatrix(naive_bayes_classifier)
+cm.fit(X_census_train,y_census_train)
+cm.score(X_census_test,y_census_test)
+
+report = classification_report(y_census_test, previsao)

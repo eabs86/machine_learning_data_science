@@ -100,4 +100,31 @@ X_credit_train,X_credit_test, y_credit_train, y_credit_test = train_test_split(
 import pickle
 
 with open('credit.pkl',mode = 'wb') as f:
-    pickle.dump([X_credit_train,y_credit_train,X_credit_test,y_credit], f)
+    pickle.dump([X_credit_train,y_credit_train,X_credit_test,y_credit_test], f)
+    
+
+# lendo o arquivo pkl
+
+with open('credit.pkl',mode = 'rb') as f:
+    X_credit_train,y_credit_train,X_credit_test,y_credit_test = pickle.load(f)
+    
+#aplicando o algoritmo de classificação
+from sklearn.naive_bayes import GaussianNB
+
+naive_bayes_classifier = GaussianNB()
+naive_bayes_classifier.fit(X_credit_train, y_credit_train)
+
+previsao = naive_bayes_classifier.predict(X_credit_test)
+
+from sklearn.metrics import accuracy_score, confusion_matrix,classification_report
+
+accuracy_score(y_credit_test, previsao)
+confusion_matrix(y_credit_test, previsao)
+
+from yellowbrick.classifier import ConfusionMatrix
+
+cm = ConfusionMatrix(naive_bayes_classifier)
+cm.fit(X_credit_train,y_credit_train)
+cm.score(X_credit_test,y_credit_test)
+
+report = classification_report(y_credit_test, previsao)
